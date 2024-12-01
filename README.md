@@ -1,22 +1,73 @@
-# Forex Data Scraping and API Service
+# Forex Data Fetching and Querying API
 
-This repository contains the implementation of a Forex data scraping and API service project. The project covers all tasks and requirements as outlined in the assignment by Vance. The goal was to create a Flask-based API that fetches forex data from Yahoo Finance using Selenium and stores it in an in-memory SQLite database for efficient access.
+This project provides a Flask-based API to fetch, store, and query Forex exchange rate data for multiple currency pairs. The data is fetched from Yahoo Finance, stored in an SQLite database, and can be queried through the API.
 
 ## Features
 
-- **Flask API**: A RESTful API built using Flask that handles the retrieval of forex data based on user inputs.
-- **Selenium Web Scraping**: The script uses Selenium to scrape forex data from Yahoo Finance, ensuring dynamic content is fully loaded before data extraction.
-- **In-Memory SQLite Database**: The scraped data is stored in an in-memory SQLite database, providing temporary and fast data storage for the application.
-- **Error Handling & Debugging**: The project includes comprehensive error handling and debugging mechanisms to ensure smooth operation and facilitate troubleshooting.
+- Scrape Forex data for specific currency pairs from Yahoo Finance.
+- Store the data in an SQLite database (in-memory or persistent).
+- Query Forex data for specified date ranges via an API.
+- Automate periodic data fetching and storage.
+
+---
+
+## File Structure
+
+- `scraper.py` - Contains the logic for scraping Forex data from Yahoo Finance.
+- `main.py` - Includes helper functions for database creation, timestamp conversion, and data querying.
+- `app.py` - Flask application to expose an API endpoint for querying Forex data.
+- `forex_data.db` - SQLite database (created dynamically) to store the Forex data.
+
+---
+
+## Prerequisites
+
+- Python 3.8 or higher
+- `pip` package manager
+
+---
 
 ## Installation
 
-To run this project locally, you’ll need to have Python 3 and the required dependencies installed.
+1. **Clone the Repository**:
+    ```bash
+    git clone <your-repository-url>
+    cd <repository-folder>
+    ```
 
-### Prerequisites
+2. **Set Up a Virtual Environment**:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
 
-1. Python 3.x
-2. Install required Python libraries:
+3. **Install Dependencies**:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-   ```bash
-   pip install -r requirements.txt
+4. **Set Up the Database**:
+    - The database (`forex_data.db`) will be created dynamically by the script.
+
+5. **To Run The App**:
+    - To start the Flask web application, use the following command:
+
+    ```bash
+    python3 app.py
+    ```
+
+    - The terminal will show output indicating the server is running, typically:
+
+    ```
+    * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+    ```
+
+    - Open your web browser and navigate to `http://127.0.0.1:5000` to access the Forex data querying API.
+
+---
+
+## Usage
+
+### 1. **Running the Periodic Data Fetcher**
+
+The `scraper.py` script periodically fetches and stores Forex data from

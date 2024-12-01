@@ -60,7 +60,7 @@ def fetch_forex_data(from_currency, to_currency, from_date, to_date):
     driver.get(url)
 
     
-    wait = WebDriverWait(driver, 60)
+    wait = WebDriverWait(driver, 20)
 
     try:
         

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forex Data Query</title>
+  <link rel="stylesheet" type="text/css" href="style.css"> <!-- Link to the stylesheet -->
+  <script src="script.js" defer></script> <!-- Link to the script -->
+</head>
+<body>
+  <div class="container">
+    <h1>Forex Data Query</h1>
+
+    <form id="forexForm">
+      <label for="from">From Currency:</label>
+      <input type="text" id="from" name="from" placeholder="e.g., USD" required>
+
+      <label for="to">To Currency:</label>
+      <input type="text" id="to" name="to" placeholder="e.g., INR" required>
+
+      <label for="period">Period:</label>
+      <input type="text" id="period" name="period" placeholder="YYYY-MM-DD YYYY-MM-DD" required>
+
+      <button type="submit">Fetch Data</button>
+    </form>
+
+    <!-- Loading Indicator -->
+    <div id="loading" style="display: none;">Loading data...</div>
+
+    <!-- Display Results Here -->
+<div id="resultList"></div>
+
+    <script>
+    function displayResults(data) {
+        const resultDiv = document.getElementById("resultList");
+        
+        // Clear any previous results
+        resultDiv.innerHTML = "";
+
+        if (!data || data.length === 0) {
+        resultDiv.innerHTML = `<p>No data available for the given period.</p>`;
+        return;
+        }
+
+        // Create a table to display the results
+        const table = document.createElement("table");
+        table.classList.add("result-table");
+
+        // Create table headers
+        const header = document.createElement("thead");
+        const headerRow = document.createElement("tr");
+        headerRow.innerHTML = `
+        <th>Date</th>
+        <th>Open</th>
+        <th>High</th>
+        <th>Low</th>
+        <th>Close</th>
+        <th>Volume</th>
+        `;
+        header.appendChild(headerRow);
+        table.appendChild(header);
+
+        // Create table body
+        const body = document.createElement("tbody");
+        data.forEach(entry => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${entry.date}</td>
+            <td>${entry.open}</td>
+            <td>${entry.high}</td>
+            <td>${entry.low}</td>
+            <td>${entry.close}</td>
+            <td>${entry.volume}</td>
+        `;
+        body.appendChild(row);
+        });
+
+        table.appendChild(body);
+        resultDiv.appendChild(table);
+    }
+    </script>
+  </div>
+</body>
+</html>
