@@ -9,18 +9,18 @@ def fetch_exchange_data(url):
     }
     try:
         response = requests.get(url, headers=headers)
-        response.raise_for_status()  # Raise an error for bad responses (4xx or 5xx)
+        response.raise_for_status() 
         soup = BeautifulSoup(response.text, 'html.parser')
         table = soup.find('table')
 
         headers = [header.text.split()[0].strip() for header in table.find_all('th')]
         rows = []
-        for row in table.find_all('tr')[1:]:  # Skip the header row
+        for row in table.find_all('tr')[1:]: 
             cells = row.find_all('td')
-            if cells:  # Only process rows with cells
+            if cells:  
                 rows.append([cell.text.strip() for cell in cells])
 
-        # Create a DataFrame from the rows
+        
         df = pd.DataFrame(rows, columns=headers)
         df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
         return df
